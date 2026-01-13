@@ -16,7 +16,6 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - ${APP_CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       - ${CONFIG_PATH}caddy:/etc/caddy
       - ${DATA_PATH}caddy:/data/caddy
     restart: always
@@ -61,26 +60,28 @@ services:
       - frontend
       - backend
 
-  frp-server:
-    image: snowdreamtech/frps:alpine
-    container_name: frp-server
-    restart: unless-stopped
-    volumes:
-      - ${CONFIG_PATH}frps/frps.toml:/etc/frp/frps.toml:ro
-    ports:
-      - "7000:7000"
-    # - "7500:7500"
-    networks:
-      - backend
-      - frontend
-    healthcheck:
-      test: [ "CMD", "nc", "-z", "localhost", "7000" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    environment:
-      - TZ=Asia/Shanghai
+#  beszel-agent:
+#    image: henrygd/beszel-agent:latest
+#    container_name: beszel-agent
+#    restart: always
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#      - ${DATA_PATH}beszel_agent:/var/lib/beszel-agent
+#    environment:
+#      LISTEN: 45876
+#      KEY: ${BESZEL_AGENT_KEY}
+#      TOKEN: ${BESZEL_AGENT_TOKEN}
+#      HUB_URL: ${BESZEL_AGENT_HUB_URL}
+#    healthcheck:
+#      test: ["CMD", "/agent", "health"]
+#      interval: 30s
+#      timeout: 5s
+#      retries: 3
+#      start_period: 10s
+#    networks:
+#      - backend
+#      - frontend
+
 
 
 

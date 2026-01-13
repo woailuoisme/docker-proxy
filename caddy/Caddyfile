@@ -2,12 +2,12 @@
 	import snippets/global-log.conf
 }
 
+import templates/*.conf
 import sites/*
 
-import proxy-app dozzle.{$SITE_ADDRESS} dozzle:8080
-
+import proxy-app-basic-auth dozzle.{$SITE_ADDRESS} dozzle:8080
 # import proxy-app ssh.{$SITE_ADDRESS}  ssh:8182
-# import proxy-app app.{$SITE_ADDRESS}  chatNext:3000
+# import proxy-app frp.{$SITE_ADDRESS}  frp-server:7000
 
 :8888 {
 	respond /health 200 {
