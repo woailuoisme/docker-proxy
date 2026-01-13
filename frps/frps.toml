@@ -1,0 +1,23 @@
+[common]
+# FRP 服务端监听端口，客户端通过此端口连接
+bind_port = 7000
+# HTTP 虚拟主机端口（改为 8080 避免与 Caddy 冲突）
+vhost_http_port = 8080
+# HTTPS 虚拟主机端口（改为 8443 避免与 Caddy 冲突）
+vhost_https_port = 8443
+# 安全令牌：客户端连接时需要提供相同的 token
+# 生成强密码命令: openssl rand -base64 32
+token = "0KUM/iUc6uDKhmLU0W1m6/BM72Zdqi8kmIl4uqmvBl0="
+# 仪表盘配置
+dashboard_port = 7500
+dashboard_user = "admin"
+dashboard_pwd = "rGtg0fUI5LT3Pa5Ue7OZF+XNYui24Rx48WPxWJ2tjQY="
+# 最大连接池数量
+max_pool_count = 50
+# 每个客户端最大端口数（0 表示不限制）
+max_ports_per_client = 0
+# 启用 TCP 多路复用，提高并发性能
+tcp_mux = true
+# TCP 多路复用保活间隔（秒）
+tcp_mux_keepalive_interval = 60
+log_level = "info"

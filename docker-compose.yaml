@@ -1,0 +1,86 @@
+networks:
+  frontend:
+    name: frontend
+  backend:
+    name: backend
+
+services:
+  caddy:
+    build:
+      context: ./caddy
+    container_name: caddy
+    environment:
+      - SITE_ADDRESS=${SITE_ADDRESS}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ${APP_CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      - ${CONFIG_PATH}caddy:/etc/caddy
+      - ${DATA_PATH}caddy:/data/caddy
+    restart: always
+    networks:
+      - frontend
+      - backend
+
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:v8.14
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Shanghai
+      - DOZZLE_LEVEL=info
+      - DOZZLE_FILTER=status=running
+      - DOZZLE_NO_ANALYTICS=true
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 3s
+      timeout: 30s
+      retries: 3
+    networks:
+      - frontend
+      - backend
+
+  3xui:
+    image: ghcr.io/mhsanaei/3x-ui:latest
+    container_name: 3xui
+    volumes:
+      - ${DATA_PATH}/3xui/db/:/etc/x-ui/
+      - ${DATA_PATH}/3xui/cert/:/root/cert/
+    ports:
+      - "49001-49020:49001-49020"
+    environment:
+      - XRAY_VMESS_AEAD_FORCED=false
+      - XUI_ENABLE_FAIL2BAN=true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+
+  frp-server:
+    image: snowdreamtech/frps:alpine
+    container_name: frp-server
+    restart: unless-stopped
+    volumes:
+      - ${CONFIG_PATH}frps/frps.toml:/etc/frp/frps.toml:ro
+    ports:
+      - "7000:7000"
+    # - "7500:7500"
+    networks:
+      - backend
+      - frontend
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "7000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    environment:
+      - TZ=Asia/Shanghai
+
+
+
