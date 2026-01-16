@@ -1,8 +1,10 @@
 networks:
   frontend:
     name: frontend
+    external: ${NETWORK_EXTERNAL:-false}
   backend:
     name: backend
+    external: ${NETWORK_EXTERNAL:-false}
 
 services:
   caddy:
@@ -11,6 +13,8 @@ services:
     container_name: caddy
     environment:
       - SITE_ADDRESS=${SITE_ADDRESS}
+      - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}
+      - PREFIX_SITE_XUI=${PREFIX_SITE_XUI}
     ports:
       - "80:80"
       - "443:443"
@@ -59,7 +63,6 @@ services:
     networks:
       - frontend
       - backend
-
 #  beszel-agent:
 #    image: henrygd/beszel-agent:latest
 #    container_name: beszel-agent
@@ -81,7 +84,4 @@ services:
 #    networks:
 #      - backend
 #      - frontend
-
-
-
 
