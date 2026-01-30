@@ -1,18 +1,28 @@
-# RustDesk 自建服务器配置
+# RustDesk 自建服务器配置 (Host 模式)
 # 
 # 容器说明:
-# - hbbs (ID Server): 负责心跳检测和 ID 注册服务 (端口: 21115/tcp, 21116/tcp/udp, 21118/tcp)
-# - hbbr (Relay Server): 负责中继数据传输服务 (端口: 21117/tcp, 21119/tcp)
+# - hbbs (ID Server): 负责心跳检测和 ID 注册服务
+# - hbbr (Relay Server): 负责中继数据传输服务
+#
+# 防火墙端口要求 (必须放行):
+# - 21115 (TCP): NAT 类型检测
+# - 21116 (TCP): TCP 打洞
+# - 21116 (UDP): ID 注册与心跳 (核心端口)
+# - 21117 (TCP): 中继服务
+# - 21118 (TCP): Web 客户端支持 (WebSocket)
+# - 21119 (TCP): Web 客户端支持 (WebSocket)
 #
 # 客户端连接使用方法:
 # 1. 下载并安装 RustDesk 客户端
 # 2. 进入 设置 -> 网络 -> ID/中继服务器
 # 3. 填写以下信息:
-#    - ID 服务器: rd.{$SITE_ADDRESS}
-#    - 中继服务器: rd.{$SITE_ADDRESS}
-#    - Key (公钥): +XVnD9sdcfxWfc1Al45yNQY3DVO9ffhdb1I4vs99xLw=
+#    - ID 服务器: rustdesk.test.local (或服务器IP)
+#    - 中继服务器: rustdesk.test.local (或服务器IP)
+#    - Key (公钥): (可选) 不填也可连接，但建议填写以加密连接并防止未授权使用
 #
-# 注意: 公钥位于 data/rustdesk/id_ed25519.pub，首次启动会自动生成
+# 注意: 
+# 1. 默认情况下允许不填 Key 连接。如需强制鉴权，请在 hbbs command 中添加 "-k _" 参数
+# 2. 公钥位于 data/rustdesk/id_ed25519.pub，首次启动会自动生成。如需填 Key 请查看该文件内容
 
 services:
   hbbs:
@@ -21,17 +31,10 @@ services:
     command: hbbs
     volumes:
       - ${DATA_PATH}rustdesk:/root
-    ports:
-      - "21115:21115"
-      - "21116:21116"
-      - "21116:21116/udp"
-      - "21118:21118"
+    network_mode: "host"
     depends_on:
       - hbbr
     restart: unless-stopped
-    networks:
-      - frontend
-      - backend
 
   hbbr:
     container_name: hbbr
@@ -39,10 +42,5 @@ services:
     command: hbbr
     volumes:
       - ${DATA_PATH}rustdesk:/root
-    ports:
-      - "21117:21117"
-      - "21119:21119"
+    network_mode: "host"
     restart: unless-stopped
-    networks:
-      - frontend
-      - backend
