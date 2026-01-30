@@ -13,5 +13,7 @@ include:
   - docker-socket-proxy/docker-compose.yml
   - beszel/docker-compose.yml
   - beszel-agent/docker-compose.yml
+  - rustdesk/docker-compose.yml
+  - gotify/docker-compose.yml
 
 

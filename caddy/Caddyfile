@@ -7,6 +7,7 @@ import sites/*
 
 import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
 import proxy-app beszel.{$SITE_ADDRESS} beszel:8090
+import proxy-app msg.{$SITE_ADDRESS} gotify:80
 # import proxy-app frp.{$SITE_ADDRESS}  frp-server:7000
 
 
