@@ -6,7 +6,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
-    privileged: true
     ports:
       - "42375:2375"
     security_opt:
