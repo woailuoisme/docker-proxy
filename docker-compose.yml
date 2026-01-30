@@ -6,63 +6,12 @@ networks:
     name: backend
     external: ${NETWORK_EXTERNAL:-false}
 
-services:
-  caddy:
-    build:
-      context: ./caddy
-    container_name: caddy
-    environment:
-      - SITE_ADDRESS=${SITE_ADDRESS}
-      - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}
-      - PREFIX_SITE_XUI=${PREFIX_SITE_XUI}
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    volumes:
-      - ${CONFIG_PATH}caddy:/etc/caddy
-      - ${DATA_PATH}caddy:/data/caddy
-    restart: always
-    networks:
-      - frontend
-      - backend
-
-  dozzle:
-    container_name: dozzle
-    image: amir20/dozzle:v8.14
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - TZ=Asia/Shanghai
-      - DOZZLE_LEVEL=info
-      - DOZZLE_FILTER=status=running
-      - DOZZLE_NO_ANALYTICS=true
-    healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 3s
-      timeout: 30s
-      retries: 3
-    networks:
-      - frontend
-      - backend
-
-  3xui:
-    image: ghcr.io/mhsanaei/3x-ui:latest
-    container_name: 3xui
-    volumes:
-      - ${DATA_PATH}/3xui/db/:/etc/x-ui/
-      - ${DATA_PATH}/3xui/cert/:/root/cert/
-    ports:
-      - "49001-49020:49001-49020"
-    environment:
-      - XRAY_VMESS_AEAD_FORCED=false
-      - XUI_ENABLE_FAIL2BAN=true
-    tty: true
-    restart: unless-stopped
-    networks:
-      - frontend
-      - backend
 include:
+  - caddy/docker-compose.yml
+  - dozzle/docker-compose.yml
+  - 3xui/docker-compose.yml
   - docker-socket-proxy/docker-compose.yml
-#  - beszel-agent/docker-compose.yml
+  - beszel/docker-compose.yml
+  - beszel-agent/docker-compose.yml
+
+

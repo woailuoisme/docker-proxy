@@ -1,0 +1,20 @@
+services:
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:v8.14
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Shanghai
+      - DOZZLE_LEVEL=info
+      - DOZZLE_FILTER=status=running
+      - DOZZLE_NO_ANALYTICS=true
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 3s
+      timeout: 30s
+      retries: 3
+    networks:
+      - frontend
+      - backend
