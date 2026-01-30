@@ -65,4 +65,4 @@ services:
       - backend
 include:
   - docker-socket-proxy/docker-compose.yml
-  - beszel-agent/docker-compose.yml
+#  - beszel-agent/docker-compose.yml
