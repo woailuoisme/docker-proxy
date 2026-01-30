@@ -1,4 +1,4 @@
-FROM tecnativa/docker-socket-proxy:v0.4.2
+FROM linuxserver/socket-proxy:latest
 
 LABEL maintainer="seaside <531773730@qq.com>"
 
@@ -73,25 +73,3 @@ ENV POST=1 \
     AUTH=0 \
     PLUGINS=0 \
     SYSTEM=0
-
-# ============================================
-# 修复 HAProxy 警告
-# ============================================
-USER root
-
-# 1. 创建 server-state 文件，避免 "Can't open global server state file" 警告
-# 2. 修改默认配置模板，解决 "missing timeouts" 警告
-#    将 timeout server 0 修改为 24h，并添加 client/connect 超时
-RUN mkdir -p /var/lib/haproxy && \
-    touch /var/lib/haproxy/server-state && \
-    for cfg in /usr/local/etc/haproxy/haproxy.cfg.template /usr/local/etc/haproxy/haproxy.cfg; do \
-        if [ -f "$cfg" ]; then \
-            sed -i 's/timeout server 0/timeout server 24h\n    timeout connect 30s/g' "$cfg"; \
-        fi; \
-    done
-
-# ============================================
-# 健康检查
-# ============================================
-HEALTHCHECK --interval=60s --timeout=5s --retries=3 \
-    CMD wget --spider -q http://localhost:2375/_ping || exit 1
