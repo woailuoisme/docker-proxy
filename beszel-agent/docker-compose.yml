@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     environment:
       - LISTEN=${BESZEL_AGENT_PORT:-45876}
       - KEY=${BESZEL_AGENT_KEY:-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7U3WmswR2GGyV/Q8MA2MPD/toJ9/9F2phZ/CgRgERE}
