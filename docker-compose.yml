@@ -11,7 +11,7 @@ include:
   - dozzle/docker-compose.yml
   - 3xui/docker-compose.yml
   - docker-socket-proxy/docker-compose.yml
-  - beszel-agent/docker-compose.yml
+#  - beszel-agent/docker-compose.yml
 #  - beszel/docker-compose.yml
 #  - rustdesk/docker-compose.yml
 #  - gotify/docker-compose.yml
