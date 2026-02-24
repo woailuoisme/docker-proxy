@@ -26,3 +26,8 @@ services:
     networks:
       - frontend
       - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.3xui.rule=Host(`xui.${DOMAIN:-test.local}`)"
+      - "traefik.http.routers.3xui.entrypoints=websecure"
+      - "traefik.http.services.3xui.loadbalancer.server.port=2053"

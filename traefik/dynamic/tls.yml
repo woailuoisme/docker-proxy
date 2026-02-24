@@ -1,0 +1,13 @@
+tls:
+  certificates:
+    # 取消下面的注释并修改为您真实的文件名
+    # - certFile: /config/certs/local.crt
+    #   keyFile: /config/certs/local.key
+
+  # 如果没有证书，Traefik 会生成一个默认的自签名证书
+  # 您可以在这里自定义自签名证书的某些属性（可选）
+  stores:
+    default:
+      defaultCertificate:
+        # certFile: /config/certs/local.crt
+        # keyFile: /config/certs/local.key

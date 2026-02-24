@@ -7,10 +7,13 @@ networks:
     external: ${NETWORK_EXTERNAL:-false}
 
 include:
-  - caddy/docker-compose.yml
-  - dozzle/docker-compose.yml
-  - 3xui/docker-compose.yml
   - docker-socket-proxy/docker-compose.yml
+  - authelia/docker-compose.yml
+  - crowdsec/docker-compose.yml
+  - traefik/docker-compose.yml
+#  - caddy/docker-compose.yml
+  - dozzle/docker-compose.yml
+#  - 3xui/docker-compose.yml
 #  - beszel-agent/docker-compose.yml
 #  - beszel/docker-compose.yml
 #  - rustdesk/docker-compose.yml

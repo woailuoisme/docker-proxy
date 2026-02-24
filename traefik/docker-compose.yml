@@ -1,0 +1,38 @@
+services:
+  traefik:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traefik
+    restart: always
+    environment:
+      - TZ=${TIMEZONE:-Asia/Shanghai}
+      - DOMAIN=${DOMAIN:-test.local}
+      - ACME_EMAIL=${ACME_EMAIL:-admin@${DOMAIN:-test.local}}
+      - CROWDSEC_LAPI_HOST=${CROWDSEC_LAPI_HOST:-crowdsec:8080}
+      - CROWDSEC_LAPI_KEY=${CROWDSEC_LAPI_KEY}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${CONFIG_PATH:-./}traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ${CONFIG_PATH:-./}traefik/dynamic:/config/dynamic:ro
+      - ${CONFIG_PATH:-./}traefik/certs:/config/certs
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - docker-socket-proxy
+      - crowdsec
+      - authelia
+    networks:
+      - frontend
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${DOMAIN:-test.local}`)"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.middlewares=authelia@file"
+#      - "traefik.http.routers.traefik-dashboard.middlewares=basic-auth@file"

@@ -12,4 +12,10 @@ services:
     volumes:
       - "${DATA_PATH}gotify:/app/data"
     networks:
+      - frontend
       - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gotify.rule=Host(`gotify.${DOMAIN:-test.local}`)"
+      - "traefik.http.routers.gotify.entrypoints=websecure"
+      - "traefik.http.services.gotify.loadbalancer.server.port=80"
