@@ -7,7 +7,7 @@ networks:
     external: ${NETWORK_EXTERNAL:-false}
 
 include:
-  - docker-socket-proxy/docker-compose.yml
+  - socket-proxy/docker-compose.yml
   - authelia/docker-compose.yml
   - crowdsec/docker-compose.yml
   - traefik/docker-compose.yml

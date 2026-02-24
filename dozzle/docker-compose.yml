@@ -8,7 +8,7 @@ services:
     volumes:
       - ${CONFIG_PATH}dozzle/users.yml:/data/users.yml
     environment:
-      DOZZLE_REMOTE_HOST: tcp://docker-socket-proxy:2375
+      DOZZLE_REMOTE_HOST: tcp://socket-proxy:2375
 #      DOZZLE_AUTH_PROVIDER: simple
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_ENABLE_SHELL: true
@@ -17,7 +17,7 @@ services:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 3s
     depends_on:
-      - docker-socket-proxy
+      - socket-proxy
     networks:
       - backend
       - frontend

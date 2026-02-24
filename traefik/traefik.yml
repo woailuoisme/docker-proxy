@@ -40,7 +40,7 @@ entryPoints:
 
 providers:
   docker:
-    endpoint: "http://docker-socket-proxy:2375"
+    endpoint: "http://socket-proxy:2375"
     exposedByDefault: false
     network: frontend
     watch: true

@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DOCKER_HOST: tcp://docker-socket-proxy:2375
+      DOCKER_HOST: tcp://socket-proxy:2375
       GID: "${GID-1000}"
       BOUNCER_KEY_TRAEFIK: ${CROWDSEC_LAPI_KEY}
       COLLECTIONS: "crowdsecurity/traefik LePresidente/authelia"

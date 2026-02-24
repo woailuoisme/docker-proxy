@@ -1,8 +1,7 @@
 services:
-  docker-socket-proxy:
-    build:
-      context: .
-    container_name: docker-socket-proxy
+  socket-proxy:
+    image: jiaoio/socket-proxy:3.2.12
+    container_name: ocket-proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped

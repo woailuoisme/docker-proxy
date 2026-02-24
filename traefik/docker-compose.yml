@@ -23,7 +23,7 @@ services:
     security_opt:
       - no-new-privileges:true
     depends_on:
-      - docker-socket-proxy
+      - socket-proxy
       - crowdsec
       - authelia
     networks:

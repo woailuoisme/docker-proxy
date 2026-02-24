@@ -10,11 +10,11 @@ services:
       - KEY=${BESZEL_AGENT_KEY:-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7U3WmswR2GGyV/Q8MA2MPD/toJ9/9F2phZ/CgRgERE}
       - TOKEN=${BESZEL_AGENT_TOKEN:-f8584037-db71-49ec-b14c-8ccd4e25b8ce}
       - HUB_URL=${BESZEL_AGENT_HUB_URL:-http://beszel:8090}
-      - DOCKER_HOST=${BESZEL_AGENT_DOCKER_HOST:-tcp://docker-socket-proxy:2375}
+      - DOCKER_HOST=${BESZEL_AGENT_DOCKER_HOST:-tcp://socket-proxy:2375}
     volumes:
       - ${DATA_PATH}beszel_agent:/var/lib/beszel-agent
     depends_on:
-      - docker-socket-proxy
+      - socket-proxy
     networks:
       - backend
       - frontend
