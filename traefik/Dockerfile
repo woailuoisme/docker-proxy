@@ -1,5 +1,5 @@
-ARG VERSION=v3.6
-FROM traefik:${VERSION}
+ARG TRAEFIK_VERSION=v3.6.10
+FROM traefik:${TRAEFIK_VERSION}
 
 WORKDIR /etc/traefik
 
