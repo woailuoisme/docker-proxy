@@ -4,23 +4,19 @@ services:
     container_name: socket-proxy
     user: root
     privileged: true
-    restart: unless-stopped
+    restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - "42375:2375"
     environment:
-      - LOG_LEVEL=debug
+      - LOG_LEVEL=info
       - CONTAINERS=1
-      - IMAGES=1
       - INFO=1
-      - NETWORKS=1
-      - VOLUMES=1
-      - SYSTEM=1
       - EVENTS=1
-      - PING=1
-      - VERSION=1
-      - POST=1
-      - EXEC=1
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider -Y off http://127.0.0.1:2375/_ping || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     networks:
       - proxy

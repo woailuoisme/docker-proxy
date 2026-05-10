@@ -13,9 +13,6 @@ import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2096
 	handle /health {
 		respond "OK" 200
 	}
-	handle /ready {
-		respond "Ready" 200
-	}
 	handle {
 		abort
 	}

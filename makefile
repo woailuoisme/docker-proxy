@@ -4,27 +4,16 @@ export
 # 路径定义
 CADDY_ROOT_CERT = ./data/caddy/pki/authorities/local/root.crt
 
-.PHONY: help up down restart logs trust-caddy-cert
+.PHONY: validate-docker-compose validate-caddy test-caddy-proxy trust-caddy-cert
 
-help:
-	@echo "可用命令:"
-	@echo "  make up                 - 启动所有服务"
-	@echo "  make down               - 停止并移除所有服务"
-	@echo "  make restart            - 重启所有服务"
-	@echo "  make logs               - 查看所有服务日志"
-	@echo "  make trust-caddy-cert   - 将 Caddy 根证书添加到 macOS 受信任列表"
+validate-docker-compose:
+	docker-compose config >/dev/null
 
-up:
-	docker-compose up -d
+validate-caddy:
+	docker-compose run --rm --no-deps caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
 
-down:
-	docker-compose down
-
-restart:
-	docker-compose restart
-
-logs:
-	docker-compose logs -f
+test-caddy-proxy:
+	./test_caddy_proxy.sh
 
 trust-caddy-cert:
 	@if [ -f "$(CADDY_ROOT_CERT)" ]; then \
