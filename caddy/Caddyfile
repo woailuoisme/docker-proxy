@@ -1,13 +1,17 @@
 {
-	import snippets/global-log.conf
+	# import snippets/global-log.conf
 }
 
-import templates/*.conf
-import sites/*
+# import templates/*.conf
+# import sites/*
 
-import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
-import proxy-app {$PREFIX_SITE_XUI_WEB}.{$SITE_ADDRESS} 3xui:2053
-import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2093
+xui.test.local {
+	reverse_proxy 3xui:2053
+}
+
+dozzle.test.local {
+	reverse_proxy dozzle:8080
+}
 
 :8888 {
 	handle /health {

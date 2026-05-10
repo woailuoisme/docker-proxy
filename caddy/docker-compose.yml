@@ -18,3 +18,7 @@ services:
     restart: always
     networks:
       - proxy
+
+networks:
+  proxy:
+    external: true

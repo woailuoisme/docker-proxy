@@ -1,6 +1,5 @@
 FROM jiaoio/caddy-base:2.11.2
 
-COPY sites /etc/caddy/sites
 COPY snippets /etc/caddy/snippets
 COPY templates /etc/caddy/templates
 COPY startup.sh /usr/local/bin/startup.sh
