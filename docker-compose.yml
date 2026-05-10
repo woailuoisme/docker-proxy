@@ -1,22 +1,11 @@
 networks:
-  frontend:
-    name: frontend
-    external: ${NETWORK_EXTERNAL:-false}
-  backend:
-    name: backend
+  proxy:
+    name: proxy
     external: ${NETWORK_EXTERNAL:-false}
 
 include:
+  - dnsmasq/docker-compose.yml
   - socket-proxy/docker-compose.yml
-  - authelia/docker-compose.yml
   - dozzle/docker-compose.yml
   - caddy/docker-compose.yml
   - 3xui/docker-compose.yml
-#  - sui/docker-compose.yml
-#  - traefik/docker-compose.yml
-#  - crowdsec/docker-compose.yml
-#  - beszel-agent/docker-compose.yml
-#  - beszel/docker-compose.yml
-#  - gotify/docker-compose.yml
-
-

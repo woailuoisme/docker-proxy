@@ -1,23 +1,19 @@
 services:
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.0.4
+    image: amir20/dozzle:latest
     restart: always
     ports:
       - "8180:8080"
     volumes:
-      - ${CONFIG_PATH}dozzle/users.yml:/data/users.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      DOZZLE_REMOTE_HOST: tcp://socket-proxy:2375
-#      DOZZLE_AUTH_PROVIDER: simple
+      DOZZLE_LEVEL: debug
       DOZZLE_ENABLE_ACTIONS: true
       DOZZLE_ENABLE_SHELL: true
       DOZZLE_NO_ANALYTICS: true
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 3s
-    depends_on:
-      - socket-proxy
     networks:
-      - backend
-      - frontend
+      - proxy

@@ -6,15 +6,17 @@ import templates/*.conf
 import sites/*
 
 import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
-# import proxy-app beszel.{$SITE_ADDRESS} beszel:8090
-# import proxy-app frp.{$SITE_ADDRESS}  frp-server:7000
-
+import proxy-app {$PREFIX_SITE_XUI_WEB}.{$SITE_ADDRESS} 3xui:2053
+import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2093
 
 :8888 {
-	respond /health 200 {
-		body "OK"
+	handle /health {
+		respond "OK" 200
 	}
-	respond /ready 200 {
-		body "Ready"
+	handle /ready {
+		respond "Ready" 200
+	}
+	handle {
+		abort
 	}
 }

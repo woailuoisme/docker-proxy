@@ -5,8 +5,9 @@ services:
     container_name: caddy
     environment:
       - SITE_ADDRESS=${SITE_ADDRESS}
+      - PREFIX_SITE_XUI_WEB=${PREFIX_SITE_XUI_WEB}
+      - PREFIX_SITE_XUI_SUB=${PREFIX_SITE_XUI_SUB}
       - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}
-      - PREFIX_SITE_XUI=${PREFIX_SITE_XUI}
     ports:
       - "80:80"
       - "443:443"
@@ -16,5 +17,4 @@ services:
       - ${DATA_PATH}caddy:/data/caddy
     restart: always
     networks:
-      - frontend
-      - backend
+      - proxy

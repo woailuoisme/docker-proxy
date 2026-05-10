@@ -1,6 +1,6 @@
 services:
   3xui:
-    image: ghcr.io/mhsanaei/3x-ui:2.8.11
+    image: ghcr.io/mhsanaei/3x-ui:2.9.4
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/
@@ -24,8 +24,7 @@ services:
       retries: 3       # 连续失败 3 次标记为 unhealthy
       start_period: 60s # 增加启动宽限期，避免数据库初始化慢导致误判
     networks:
-      - frontend
-      - backend
+      - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.3xui.rule=Host(`xui.${DOMAIN:-test.local}`)"
