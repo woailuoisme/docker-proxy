@@ -5,7 +5,7 @@ networks:
 
 include:
   - dnsmasq/docker-compose.yml
-  - socket-proxy/docker-compose.yml
+  # - socket-proxy/docker-compose.yml
   - dozzle/docker-compose.yml
   - caddy/docker-compose.yml
   - 3xui/docker-compose.yml

@@ -1,17 +1,15 @@
 services:
   3xui:
-    image: ghcr.io/mhsanaei/3x-ui:2.9.4
+    image: ghcr.io/mhsanaei/3x-ui:3.0.1
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/
-      - ${DATA_PATH}/3xui/cert/:/root/cert/
     ports:
-      - "49001-49020:49001-49020"
+      - "49001-49010:49001-49010"
     environment:
       - TZ=Asia/Shanghai
-      - XRAY_VMESS_AEAD_FORCED=false
-      - XUI_ENABLE_FAIL2BAN=true
-    # Fail2Ban 需要 NET_ADMIN 权限才能操作 iptables
+      - XUI_LOG_LEVEL=info
+      - XUI_ENABLE_FAIL2BAN=false
     cap_add:
       - NET_ADMIN
     tty: true
@@ -25,8 +23,3 @@ services:
       start_period: 60s # 增加启动宽限期，避免数据库初始化慢导致误判
     networks:
       - proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.3xui.rule=Host(`xui.${DOMAIN:-test.local}`)"
-      - "traefik.http.routers.3xui.entrypoints=websecure"
-      - "traefik.http.services.3xui.loadbalancer.server.port=2053"
