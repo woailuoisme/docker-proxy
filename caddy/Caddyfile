@@ -1,6 +1,6 @@
 {
 	import snippets/global-log.conf
-	import snippets/dns.conf
+	import snippets/tls.conf
 }
 
 import templates/*.conf
