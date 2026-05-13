@@ -1,5 +1,6 @@
 {
 	import snippets/global-log.conf
+	import snippets/dns.conf
 }
 
 import templates/*.conf
@@ -12,8 +13,5 @@ import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2096
 :8888 {
 	handle /health {
 		respond "OK" 200
-	}
-	handle {
-		abort
 	}
 }

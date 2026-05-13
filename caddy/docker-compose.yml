@@ -5,6 +5,7 @@ services:
     container_name: caddy
     environment:
       - SITE_ADDRESS=${SITE_ADDRESS}
+      - CF_API_TOKEN=${CF_API_TOKEN}
       - PREFIX_SITE_XUI_WEB=${PREFIX_SITE_XUI_WEB}
       - PREFIX_SITE_XUI_SUB=${PREFIX_SITE_XUI_SUB}
       - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}

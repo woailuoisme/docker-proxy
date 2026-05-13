@@ -4,6 +4,7 @@ services:
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/
+      - ${DATA_PATH}caddy/certificates:/certs
     ports:
       - "49001-49010:49001-49010"
     environment:

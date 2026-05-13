@@ -1,0 +1,19 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: validate docker-compose
+      glob:
+        - "docker-compose.yml"
+        - "**/docker-compose.yml"
+        - ".env.example"
+      run: make validate-docker-compose
+
+    - name: validate caddyfile
+      glob:
+        - "caddy/Caddyfile"
+        - "caddy/templates/*.conf"
+        - "caddy/snippets/*.conf"
+        - "caddy/sites/*"
+        - "caddy/Dockerfile"
+        - "caddy/docker-compose.yml"
+      run: make validate-caddy
