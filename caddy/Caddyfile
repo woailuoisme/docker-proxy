@@ -6,12 +6,20 @@
 import templates/*.conf
 # import sites/*
 
-import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
-import proxy-app {$PREFIX_SITE_XUI_WEB}.{$SITE_ADDRESS} 3xui:2053
-import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2096
+# 显式声明通配符主机名，让 Caddy 申请并复用 *.{$SITE_ADDRESS} 证书。
+# 未匹配到具体服务的子域名直接中止连接，避免暴露默认响应。
+*.{$SITE_ADDRESS} {
+	handle {
+		abort
+	}
+}
 
 :8888 {
 	handle /health {
 		respond "OK" 200
 	}
 }
+
+import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
+import proxy-app {$PREFIX_SITE_XUI_WEB}.{$SITE_ADDRESS} 3xui:2053
+import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2096
