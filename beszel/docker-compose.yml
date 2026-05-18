@@ -1,0 +1,11 @@
+services:
+  beszel:
+    container_name: beszel
+    image: henrygd/beszel:${BESZEL_VERSION:-0.18.7}
+    restart: always
+    ports:
+      - "${BESZEL_PORT:-8090}:8090"
+    volumes:
+      - ${DATA_PATH}beszel:/beszel_data
+    networks:
+      - proxy

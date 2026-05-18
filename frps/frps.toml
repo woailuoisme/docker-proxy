@@ -1,0 +1,18 @@
+# frpc 连接到 frps 的控制端口，`tcp` / `udp` / `stcp` / `sudp` / `xtcp` 等类型都会先走这里。
+bindPort = 7000
+# `type = "http"` 代理使用的 vhost HTTP 端口。
+vhostHTTPPort = 8080
+# `type = "https"` 代理使用的 vhost HTTPS 端口。
+vhostHTTPSPort = 8443
+# `type = "tcpmux"` 代理使用的 HTTP CONNECT 端口。
+tcpmuxHTTPConnectPort = 8081
+
+# frpc 客户端共享的 token 鉴权。
+auth.method = "token"
+auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
+
+# 本地 dashboard，供健康检查和状态查看使用。
+webServer.addr = "0.0.0.0"
+webServer.port = 7500
+webServer.user = "{{ .Envs.FRPS_WEB_SERVER_USER }}"
+webServer.password = "{{ .Envs.FRPS_WEB_SERVER_PASSWORD }}"

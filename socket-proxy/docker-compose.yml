@@ -1,6 +1,6 @@
 services:
   socket-proxy:
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: ghcr.io/tecnativa/docker-socket-proxy:v0.4.2
     container_name: socket-proxy
     user: root
     privileged: true
@@ -11,7 +11,8 @@ services:
       - LOG_LEVEL=info
       - CONTAINERS=1
       - INFO=1
-      - EVENTS=1
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider -Y off http://127.0.0.1:2375/_ping || exit 1"]
       interval: 30s

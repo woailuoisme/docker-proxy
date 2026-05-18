@@ -1,0 +1,16 @@
+services:
+  frps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frps
+    restart: always
+    environment:
+      - TZ=${TZ:-Asia/Shanghai}
+      - FRP_AUTH_TOKEN=${FRP_AUTH_TOKEN:?FRP_AUTH_TOKEN is required}
+      - FRPS_WEB_SERVER_USER=${FRPS_WEB_SERVER_USER}
+      - FRPS_WEB_SERVER_PASSWORD=${FRPS_WEB_SERVER_PASSWORD}
+    ports:
+      - "7500:7500"
+    networks:
+      - proxy

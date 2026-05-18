@@ -1,0 +1,13 @@
+services:
+  beszel-agent:
+    container_name: beszel-agent
+    image: henrygd/beszel-agent:${BESZEL_AGENT_VERSION:-latest}
+    restart: always
+    environment:
+      - HUB_URL=${BESZEL_AGENT_HUB_URL:-http://beszel:8090}
+      - KEY=${BESZEL_AGENT_KEY:-}
+      - TOKEN=${BESZEL_AGENT_TOKEN:-}
+    volumes:
+      - ${DATA_PATH}beszel_agent:/var/lib/beszel-agent
+    networks:
+      - proxy

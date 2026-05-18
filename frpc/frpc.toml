@@ -1,0 +1,40 @@
+serverAddr = "caddy"
+serverPort = 7000
+
+auth.method = "token"
+auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
+
+# Keep a local admin API so health checks and reload/status commands can inspect the client.
+webServer.addr = "{{ .Envs.FRPC_WEB_SERVER_ADDR }}"
+webServer.port = 7400
+webServer.user = "{{ .Envs.FRPC_WEB_SERVER_USER }}"
+webServer.password = "{{ .Envs.FRPC_WEB_SERVER_PASSWORD }}"
+
+# 示例：把 Docker 内网的 Caddy HTTP 服务暴露到 frps。
+# [[proxies]]
+# name = "caddy-http"
+# type = "http"
+# localIP = "caddy"
+# localPort = 80
+# customDomains = ["example.com"]
+
+[[proxies]]
+name = "dozzle"
+type = "http"
+localIP = "dozzle"
+localPort = 8080
+customDomains = ["{{ .Envs.PREFIX_SITE_DOZZLE }}.{{ .Envs.SITE_ADDRESS }}"]
+
+[[proxies]]
+name = "3xui-web"
+type = "http"
+localIP = "3xui"
+localPort = 2053
+customDomains = ["{{ .Envs.PREFIX_SITE_XUI_WEB }}.{{ .Envs.SITE_ADDRESS }}"]
+
+[[proxies]]
+name = "3xui-sub"
+type = "http"
+localIP = "3xui"
+localPort = 2096
+customDomains = ["{{ .Envs.PREFIX_SITE_XUI_SUB }}.{{ .Envs.SITE_ADDRESS }}"]

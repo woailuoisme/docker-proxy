@@ -1,0 +1,21 @@
+services:
+  frpc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frpc
+    restart: always
+    environment:
+      - TZ=${TZ:-Asia/Shanghai}
+      - FRP_AUTH_TOKEN=${FRP_AUTH_TOKEN:?FRP_AUTH_TOKEN is required}
+      - SITE_ADDRESS=${SITE_ADDRESS}
+      - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}
+      - PREFIX_SITE_XUI_WEB=${PREFIX_SITE_XUI_WEB}
+      - PREFIX_SITE_XUI_SUB=${PREFIX_SITE_XUI_SUB}
+      - NO_PROXY=localhost,127.0.0.1,caddy,dozzle,3xui,.${SITE_ADDRESS}
+      - FRPC_WEB_SERVER_ADDR=${FRPC_WEB_SERVER_ADDR:-127.0.0.1}
+      - FRPC_WEB_SERVER_PORT=${FRPC_WEB_SERVER_PORT:-7400}
+      - FRPC_WEB_SERVER_USER=${FRPC_WEB_SERVER_USER:-admin}
+      - FRPC_WEB_SERVER_PASSWORD=${FRPC_WEB_SERVER_PASSWORD:-change-me}
+    networks:
+      - proxy
