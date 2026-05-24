@@ -14,8 +14,8 @@ SUB_URL="https://${PREFIX_SITE_XUI_SUB}.${SITE_ADDRESS}/"
 curl_no_proxy() {
 	NO_PROXY="$NO_PROXY_VALUE" \
 	no_proxy="$NO_PROXY_VALUE" \
-	HTTP_PROXY= HTTPS_PROXY= ALL_PROXY= \
-	http_proxy= https_proxy= all_proxy= \
+	HTTP_PROXY='' HTTPS_PROXY='' ALL_PROXY='' \
+	http_proxy='' https_proxy='' all_proxy='' \
 	curl -k -sS -o /dev/null -w '%{http_code}' "$1"
 }
 
