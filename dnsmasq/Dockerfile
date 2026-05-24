@@ -5,7 +5,7 @@ ARG CHANGE_SOURCE=true
 RUN if [ "${CHANGE_SOURCE}" = "true" ]; then \
         sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories; \
     fi && \
-    apk add --no-cache dnsmasq drill
+    apk add --no-cache dnsmasq=2.91-r1 drill=1.8.4-r1
 
 COPY dnsmasq.conf /etc/dnsmasq.conf
 

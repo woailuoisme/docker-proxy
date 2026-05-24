@@ -1,0 +1,11 @@
+# shellcheck configuration
+# https://www.shellcheck.net/wiki/
+
+# 目标 shell：项目脚本均使用 #!/bin/sh（POSIX sh）
+shell=sh
+
+# 启用可选检查项
+enable=all
+
+# 全局忽略规则（按需取消注释）
+# disable=SC2039  # 允许在 sh 中使用部分 bash 扩展语法（不推荐）
