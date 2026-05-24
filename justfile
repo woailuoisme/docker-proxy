@@ -6,6 +6,10 @@ caddy_root_cert := "./data/caddy/pki/authorities/local/root.crt"
 # 运行所有检测
 lint: lint-shell lint-dockerfile lint-caddy validate-docker-compose
 
+# shfmt 格式化所有 shell 脚本（原地修改）
+fmt-shell:
+    find . -name "*.sh" -not -path "./.git/*" -not -path "./data/*" | xargs shfmt -w
+
 # shellcheck 检测所有 shell 脚本
 lint-shell:
     find . -name "*.sh" -not -path "./.git/*" -not -path "./data/*" | xargs shellcheck

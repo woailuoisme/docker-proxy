@@ -1,0 +1,32 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Shell 脚本：tab 缩进（shfmt 默认），以下扩展键由 shfmt 读取
+[*.sh]
+indent_style = tab
+indent_size = 4
+shell_variant = posix        # 方言：posix sh（对应 shfmt -ln posix）
+binary_next_line = true      # && || 等操作符放下一行行首（shfmt -bn）
+switch_case_indent = true    # case 分支额外缩进（shfmt -ci）
+space_redirects = true       # 重定向符号两侧加空格，如 > file（shfmt -sr）
+
+[Dockerfile*]
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.toml]
+indent_style = space
+indent_size = 2
+
+[justfile]
+indent_style = space
+indent_size = 4
