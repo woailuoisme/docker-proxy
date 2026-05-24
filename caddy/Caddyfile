@@ -2,13 +2,13 @@
 	import snippets/global-log.conf
 	acme_dns cloudflare {env.CF_API_TOKEN}
 
-	layer4 {
-		:7000 {
-			route {
-				proxy frps:7000
-			}
-		}
-	}
+	# layer4 {
+	# 	:7000 {
+	# 		route {
+	# 			proxy frps:7000
+	# 		}
+	# 	}
+	# }
 }
 
 import templates/*.conf
@@ -28,9 +28,7 @@ import templates/*.conf
 	}
 }
 
-
 import proxy-app-basic-auth {$PREFIX_SITE_DOZZLE}.{$SITE_ADDRESS} dozzle:8080
-#import proxy-app-basic-auth {$PREFIX_SITE_FRPS}.{$SITE_ADDRESS} frps:7500
-import proxy-app {$PREFIX_SITE_FRPS}.{$SITE_ADDRESS} frps:7500
 import proxy-app {$PREFIX_SITE_XUI_WEB}.{$SITE_ADDRESS} 3xui:2053
 import proxy-app {$PREFIX_SITE_XUI_SUB}.{$SITE_ADDRESS} 3xui:2096
+# import proxy-app {$PREFIX_SITE_FRPS}.{$SITE_ADDRESS} frps:7500
