@@ -10,8 +10,9 @@ services:
       - PREFIX_SITE_XUI_SUB=${PREFIX_SITE_XUI_SUB}
       - PREFIX_SITE_DOZZLE=${PREFIX_SITE_DOZZLE}
       - PREFIX_SITE_FRPS=${PREFIX_SITE_FRPS}
-      # (绕开宿主机的代理) dozzle/frps/3xui(caddyfile 使用它们的服务) 是 Docker 内网服务名，.${SITE_ADDRESS} 覆盖公开域名。
-      - NO_PROXY=localhost,127.0.0.1,dozzle,frps,3xui,.${SITE_ADDRESS}
+      - PREFIX_SITE_RUSTDESK=${PREFIX_SITE_RUSTDESK}
+      # (绕开宿主机的代理) dozzle/frps/3xui/hbbs(caddyfile 使用它们的服务) 是 Docker 内网服务名，.${SITE_ADDRESS} 覆盖公开域名。
+      - NO_PROXY=localhost,127.0.0.1,dozzle,frps,3xui,hbbs,.${SITE_ADDRESS}
     ports:
       - "80:80"
       - "443:443"

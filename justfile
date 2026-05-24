@@ -24,7 +24,24 @@ validate-docker-compose:
 
 # 验证 Caddy 配置文件
 lint-caddy:
+    #!/usr/bin/env sh
+    if ! docker info >/dev/null 2>&1; then
+        echo "⚠️  Docker 未运行，跳过 Caddy 配置验证"
+        exit 0
+    fi
     docker-compose run --rm --no-deps caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+
+# 查看 RustDesk 服务端公钥（客户端 Key 字段填此值）
+rustdesk-key:
+    #!/usr/bin/env sh
+    key="{{justfile_directory()}}/data/rustdesk/id_ed25519.pub"
+    if [ -f "$key" ]; then
+        cat "$key"
+    else
+        echo "Error: key file not found: $key"
+        echo "Make sure RustDesk has started and finished initialization."
+        exit 1
+    fi
 
 # 测试 Caddy 代理
 test-caddy-proxy:
@@ -34,10 +51,10 @@ test-caddy-proxy:
 trust-caddy-cert:
     #!/usr/bin/env bash
     if [ -f "{{ caddy_root_cert }}" ]; then
-        echo "正在安装 Caddy 根证书到 macOS 系统钥匙串..."
+        echo "Installing Caddy root certificate to macOS system keychain..."
         sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "{{ caddy_root_cert }}"
-        echo "证书安装成功！"
+        echo "Certificate installed successfully."
     else
-        echo "错误: 找不到证书文件 {{ caddy_root_cert }}"
-        echo "请确保 Caddy 服务已经启动并生成了证书。"
+        echo "Error: certificate file not found: {{ caddy_root_cert }}"
+        echo "Make sure Caddy has started and generated the certificate."
     fi
