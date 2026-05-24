@@ -4,7 +4,7 @@ networks:
     external: ${NETWORK_EXTERNAL:-false}
 
 include:
-  - dnsmasq/docker-compose.yml
+  # - dnsmasq/docker-compose.yml
   # - socket-proxy/docker-compose.yml
   - caddy/docker-compose.yml
   - 3xui/docker-compose.yml
