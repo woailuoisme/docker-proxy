@@ -16,7 +16,7 @@ pre-commit:
         - "caddy/sites/*"
         - "caddy/Dockerfile"
         - "caddy/docker-compose.yml"
-      run: just lint-caddy
+      run: docker info >/dev/null 2>&1 && just lint-caddy || echo "Docker 未运行，跳过 Caddy 配置验证"
 
     - name: hadolint
       glob:

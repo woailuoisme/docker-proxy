@@ -26,7 +26,7 @@ validate-docker-compose:
 lint-caddy:
     #!/usr/bin/env sh
     if ! docker info >/dev/null 2>&1; then
-        echo "⚠️  Docker 未运行，跳过 Caddy 配置验证"
+        echo "Docker 未运行，跳过 Caddy 配置验证"
         exit 0
     fi
     docker-compose run --rm --no-deps caddy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
