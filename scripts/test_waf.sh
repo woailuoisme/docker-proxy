@@ -58,10 +58,10 @@ log() {
 	dt=$(date '+%Y-%m-%d %H:%M:%S')
 
 	case "${level}" in
-		INFO) printf "%s%s [INFO] - %s%s\n" "${YELLOW}" "${dt}" "${msg}" "${NC}" ;;
-		SUCCESS) printf "%s%s [SUCCESS] - %s%s\n" "${GREEN}" "${dt}" "${msg}" "${NC}" ;;
-		ERROR) printf "%s%s [ERROR] - %s%s\n" "${RED}" "${dt}" "${msg}" "${NC}" ;;
-		*) printf "%s [%s] - %s\n" "${dt}" "${level}" "${msg}" ;;
+	INFO) printf "%s%s [INFO] - %s%s\n" "${YELLOW}" "${dt}" "${msg}" "${NC}" ;;
+	SUCCESS) printf "%s%s [SUCCESS] - %s%s\n" "${GREEN}" "${dt}" "${msg}" "${NC}" ;;
+	ERROR) printf "%s%s [ERROR] - %s%s\n" "${RED}" "${dt}" "${msg}" "${NC}" ;;
+	*) printf "%s [%s] - %s\n" "${dt}" "${level}" "${msg}" ;;
 	esac
 }
 
@@ -72,10 +72,10 @@ sleep 2
 USE_DOCKER=false
 
 # 检测 caddy 容器是否处于运行状态，用于后续备用
-caddy_container="$(docker ps -q -f name=^caddy$ -f status=running 2> /dev/null)"
+caddy_container="$(docker ps -q -f name=^caddy$ -f status=running 2>/dev/null)"
 
 # 尝试直接访问目标 URL 的健康检查接口
-if curl -s -m 2 -o /dev/null "${TARGET_URL}/health" > /dev/null 2>&1; then
+if curl -s -m 2 -o /dev/null "${TARGET_URL}/health" >/dev/null 2>&1; then
 	log "INFO" "检测到可以直接访问 ${TARGET_URL}，将使用本地 curl 进行测试..."
 # 如果直接访问失败，检测 caddy 容器是否处于运行状态
 elif [ -n "${caddy_container}" ]; then
@@ -102,16 +102,16 @@ test_request() {
 	expected="${2}"
 	shift 2
 
-	run_curl "$@" > /dev/null 2>&1
+	run_curl "$@" >/dev/null 2>&1
 	exit_code=$?
 
 	passed=0
 	case "${expected}" in
-		allow) [ "${exit_code}" -eq 0 ] && passed=1 ;;
-		# 退出码 52 (Empty reply) 是 Caddy 触发 WAF 拦截 (abort) 时的表现。
-		# 排除退出码 6 (Could not resolve host) 和 7 (Connection refused)，防止因服务未启动导致假阳性。
-		block) [ "${exit_code}" -ne 0 ] && [ "${exit_code}" -ne 6 ] && [ "${exit_code}" -ne 7 ] && passed=1 ;;
-		*) ;;
+	allow) [ "${exit_code}" -eq 0 ] && passed=1 ;;
+	# 退出码 52 (Empty reply) 是 Caddy 触发 WAF 拦截 (abort) 时的表现。
+	# 排除退出码 6 (Could not resolve host) 和 7 (Connection refused)，防止因服务未启动导致假阳性。
+	block) [ "${exit_code}" -ne 0 ] && [ "${exit_code}" -ne 6 ] && [ "${exit_code}" -ne 7 ] && passed=1 ;;
+	*) ;;
 	esac
 
 	if [ "${passed}" -eq 1 ]; then

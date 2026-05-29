@@ -16,7 +16,7 @@ log "INFO" "当前用户: ${current_user}"
 
 # 2. 验证配置文件语法
 # 在启动前进行验证，确保不会因为语法错误导致容器启动后立即崩溃
-if caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile > /dev/null 2>&1; then
+if caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null 2>&1; then
 	log "SUCCESS" "配置文件语法验证通过"
 else
 	log "ERROR" "配置文件语法错误，详细信息如下："
