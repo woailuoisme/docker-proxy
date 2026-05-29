@@ -4,7 +4,7 @@ networks:
     external: ${NETWORK_EXTERNAL:-false}
 
 include:
-  - dnsmasq/docker-compose.yml
+#  - dnsmasq/docker-compose.yml
   # - socket-proxy/docker-compose.yml
   - caddy/docker-compose.yml
   - 3xui/docker-compose.yml
@@ -14,4 +14,4 @@ include:
 #  - portainer-agent/docker-compose.yml
 #  - beszel/docker-compose.yml
 #  - beszel-agent/docker-compose.yml
-  - rustdesk/docker-compose.yml
+#  - rustdesk/docker-compose.yml
