@@ -32,4 +32,4 @@ pre-commit:
     - name: shfmt
       glob:
         - "**/*.sh"
-      run: shfmt -d {staged_files}
+      run: shfmt -w {staged_files}

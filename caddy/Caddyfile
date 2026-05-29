@@ -23,6 +23,7 @@ import templates/*.conf
 }
 
 :8888 {
+	import snippets/waf.conf
 	handle /health {
 		respond "OK" 200
 	}

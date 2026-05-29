@@ -5,20 +5,17 @@
 failure-threshold: warning
 
 # 全局忽略规则
-ignore:
+ignored:
   # 允许使用第三方非官方镜像（jiaoio/caddy-base, snowdreamtech/frpc 等）
   - DL3007  # Using latest is best avoided (these images use pinned versions already)
+  # shellcheck 集成：对 RUN 指令中的 shell 脚本启用检查，允许 A && B || C 模式（常见于 Dockerfile RUN）
+  - SC2015
 
 # 信任的镜像仓库（来自这些仓库的镜像不触发 DL3007）
 trustedRegistries:
   - docker.io
   - ghcr.io
   - registry.hub.docker.com
-
-# shellcheck 集成：对 RUN 指令中的 shell 脚本启用检查
-# 默认已启用，此处显式配置
-shellcheck-exclude:
-  - SC2015  # 允许 A && B || C 模式（常见于 Dockerfile RUN）
 
 # 标签规范（可选，按需启用）
 # label-schema:

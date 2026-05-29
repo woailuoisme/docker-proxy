@@ -1,6 +1,6 @@
 services:
   3xui:
-    image: ghcr.io/mhsanaei/3x-ui:3.1.0
+    image: ghcr.io/mhsanaei/3x-ui:3.2.0
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/
@@ -17,10 +17,14 @@ services:
     restart: always
     healthcheck:
       # 使用 wget 检查面板端口是否响应 (兼容性更好)
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider -Y off http://127.0.0.1:2053/ || exit 1"]
-      interval: 60s    # 每 30 秒检查一次
-      timeout: 5s      # 超时时间
-      retries: 3       # 连续失败 3 次标记为 unhealthy
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider -Y off http://127.0.0.1:2053/ || exit 1",
+        ]
+      interval: 60s # 每 30 秒检查一次
+      timeout: 5s # 超时时间
+      retries: 3 # 连续失败 3 次标记为 unhealthy
       start_period: 60s # 增加启动宽限期，避免数据库初始化慢导致误判
     networks:
       - proxy
