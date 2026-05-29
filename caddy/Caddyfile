@@ -1,5 +1,6 @@
 {
 	import snippets/global-log.conf
+	import snippets/trusted-proxies.conf
 	acme_dns cloudflare {env.CF_API_TOKEN}
 
 	# layer4 {
