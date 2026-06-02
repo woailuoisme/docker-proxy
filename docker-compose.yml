@@ -5,10 +5,10 @@ networks:
 
 include:
 #  - dnsmasq/docker-compose.yml
-  # - socket-proxy/docker-compose.yml
-  - caddy/docker-compose.yml
-  - 3xui/docker-compose.yml
-  - dozzle/docker-compose.yml
+#  - socket-proxy/docker-compose.yml
+ - caddy/docker-compose.yml
+ - 3xui/docker-compose.yml
+ - dozzle/docker-compose.yml
 #  - frps/docker-compose.yml
 #  - frpc/docker-compose.yml
 #  - portainer-agent/docker-compose.yml
