@@ -1,4 +1,4 @@
-FROM jiaoio/caddy-base:2.11.3
+FROM jiaoio/caddy-base:2.11.4
 
 COPY snippets /etc/caddy/snippets
 COPY templates /etc/caddy/templates
