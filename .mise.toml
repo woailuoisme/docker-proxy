@@ -1,0 +1,21 @@
+[tools]
+# Shell 工具
+shellcheck = "latest"
+shfmt = "latest"
+
+# 文件搜索与处理
+fd = "latest"
+rg = "latest"
+sd = "latest"
+
+# Docker 工具
+hadolint = "latest"
+
+# Dotenv 检查
+dotenv-linter = "latest"
+
+# Task runner
+just = "latest"
+
+[settings]
+experimental = true
