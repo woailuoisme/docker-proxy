@@ -1,0 +1,14 @@
+# 不自动折行（保留原始换行）
+proseWrap: preserve
+
+# 使用双引号
+singleQuote: false
+
+# 2 空格缩进
+tabWidth: 2
+
+# 统一使用 LF 换行符（避免 shell/Docker 文件在 Windows 上出现 \r\n 问题）
+endOfLine: lf
+
+# JSON 不加尾随逗号
+trailingComma: none

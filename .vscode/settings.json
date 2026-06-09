@@ -1,5 +1,33 @@
 {
-    "git.ignoreLimitWarning": true,
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 1000
+  // Git
+  "git.ignoreLimitWarning": true,
+
+  // 统一使用 LF 换行符
+  "files.eol": "\n",
+
+  // 列参考线（80 软限制，120 硬限制）
+  "editor.rulers": [80, 120],
+
+  // 保存时自动格式化（替代 autoSave，行为更可预期）
+  "editor.formatOnSave": true,
+
+  // YAML
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // JSON
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // JSONC
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // TOML
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  }
 }
