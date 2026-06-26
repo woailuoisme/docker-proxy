@@ -1,18 +1,18 @@
 services:
   3xui:
-    image: ghcr.io/mhsanaei/3x-ui:3.4.0
+    image: ghcr.io/mhsanaei/3x-ui:3.4.1
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/
-      - ${DATA_PATH}caddy/certificates:/certs
+      - ${DATA_PATH}caddy/certificates:/root/cert/
     ports:
       - "49001-49010:49001-49010"
     environment:
-      - TZ=Asia/Shanghai
-      - XUI_LOG_LEVEL=info
-      - XUI_ENABLE_FAIL2BAN=false
+      XRAY_VMESS_AEAD_FORCED: "false"
+      XUI_ENABLE_FAIL2BAN: "true"
     cap_add:
       - NET_ADMIN
+      - NET_RAW
     tty: true
     restart: always
     healthcheck:
