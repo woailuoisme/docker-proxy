@@ -15,7 +15,7 @@
 services:
   hbbs:
     container_name: hbbs
-    image: rustdesk/rustdesk-server:1.1.15
+    image: rustdesk/rustdesk-server:1
     command: hbbs -r ${SITE_ADDRESS}:21117
     volumes:
       - ${DATA_PATH}rustdesk:/root
@@ -38,7 +38,7 @@ services:
 
   hbbr:
     container_name: hbbr
-    image: rustdesk/rustdesk-server:1.1.15
+    image: rustdesk/rustdesk-server:1
     command: hbbr
     volumes:
       - ${DATA_PATH}rustdesk:/root

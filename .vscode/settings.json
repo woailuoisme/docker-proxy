@@ -18,22 +18,16 @@
 
   // JSON
   "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
 
   // JSONC
   "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
 
   // TOML
   "[toml]": {
     "editor.defaultFormatter": "tamasfe.even-better-toml"
-  },
-
-  // Biome Code Actions
-  "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
   }
 }
