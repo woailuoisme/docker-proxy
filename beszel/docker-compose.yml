@@ -19,7 +19,7 @@ services:
       - ${DATA_PATH:-./data/}beszel:/beszel_data
     environment:
       - TZ=${TIMEZONE:-Asia/Shanghai}
-      - APP_URL=https://beszel.${SITE_ADDRESS}
+      - APP_URL=https://${PREFIX_SITE_BESZEL:-beszel}.${SITE_ADDRESS}
       # 可选：首次启动自动初始化管理员用户（也可在 Web UI 页面首次访问时注册）
       # - USER_EMAIL=admin@example.com
       # - USER_PASSWORD=your_secure_password
@@ -30,5 +30,8 @@ services:
       retries: 3
       start_period: 10s
     networks:
-      - frontend
-      - backend
+      - proxy
+
+networks:
+  proxy:
+    external: true

@@ -23,10 +23,3 @@ pre-commit:
       glob:
         - "**/*.sh"
       run: shfmt -w {staged_files}
-
-    - name: dotenv-linter
-      glob:
-        - "**/.env"
-        - "**/.env.*"
-        - "**/*.env"
-      run: dotenv-linter check -i UnorderedKey {staged_files}
