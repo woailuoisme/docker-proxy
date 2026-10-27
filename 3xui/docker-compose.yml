@@ -1,6 +1,6 @@
 services:
   3xui:
-    image: ghcr.io/mhsanaei/3x-ui:3.10.2
+    image: ghcr.io/mhsanaei/3x-ui:3.11.0
     container_name: 3xui
     volumes:
       - ${DATA_PATH}/3xui/db/:/etc/x-ui/

@@ -9,18 +9,18 @@
 
 services:
   beszel-agent:
-    image: henrygd/beszel-agent:${BESZEL_AGENT_VERSION:-0.21.0}
+    image: henrygd/beszel-agent:0.21
     container_name: beszel-agent
     restart: unless-stopped
     network_mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${DATA_PATH:-./data/}beszel-agent:/var/lib/beszel-agent
+      - ${DATA_PATH}beszel-agent:/var/lib/beszel-agent
     environment:
-      - HUB_URL=${BESZEL_HUB_URL:-http://127.0.0.1:8090}
       - PORT=${BESZEL_AGENT_PORT:-45876}
       - KEY=${BESZEL_AGENT_KEY:-}
       - TOKEN=${BESZEL_AGENT_TOKEN:-}
+      - HUB_URL=${BESZEL_HUB_URL:-http://127.0.0.1:8090}
     healthcheck:
       test: ["CMD", "/agent", "health"]
       interval: 60s
