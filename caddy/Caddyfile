@@ -2,13 +2,10 @@
 	import snippets/global-log.conf
 	acme_dns cloudflare {env.CF_API_TOKEN}
 
-	# layer4 {
-	# 	:7000 {
-	# 		route {
-	# 			proxy frps:7000
-	# 		}
-	# 	}
-	# }
+	# 纯 HTTP 端口仅启用 HTTP/1.1，消除 HTTP/2 和 HTTP/3 需要 TLS 的警告
+	servers :80 {
+		protocols h1
+	}
 }
 
 import templates/*.conf
